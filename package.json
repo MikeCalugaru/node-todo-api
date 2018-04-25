@@ -4,8 +4,12 @@
   "description": "",
   "main": "main.js",
   "scripts": {
+    "start": "node server/server.js",
     "test": "mocha server/**/*.test.js",
     "test-watch": "npm test"
+  },
+  "engines": {
+    "node": "8.11.1"
   },
   "author": "Mike Calugaru",
   "license": "ISC",
