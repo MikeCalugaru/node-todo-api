@@ -45,7 +45,7 @@ app.get('/todos/:id', (req, res) => {
       res.status(404);
       return res.send({});
     } 
-      res.send({Todo: todo});
+      res.send({todo});
   }).catch((e) => {
     res.status(400);
     res.send(e);
@@ -64,9 +64,9 @@ app.delete('/todos/:id', (req, res) => {
       res.setatus(404);
       return res.send({});
     }
-    res.status(200).send({Todo: todo});
+    res.status(200).send({todo});
   }).catch((e) => {
-    res.status(400);
+    res.status(404);
     res.send(e);
   });
   //validate the id -> not valid? return 404
