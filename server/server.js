@@ -120,6 +120,44 @@ app.get('/users/me', authenticate, (req, res) => {
   res.send(req.user);
 });
 
+// POST /users/login {email, password}
+app.post('/users/login', (req, res) => {
+  var body = _.pick(req.body, ['email', 'password']);
+
+  User.findByCredentials(body.email, body.password).then((user) => {
+    return user.generateAuthToken().then((token) => {
+      res.header('x-auth', token).send(user);
+    });
+  }).catch((e) => {
+    res.status(400).send();
+  });
+});
+
+
+
+//  var email = body.email;
+//  var password = body.password;
+//  User.find({
+//    email: email
+//  }).then((user) => {
+//    if((typeof password !== 'undefined') && password.length >= 6) {
+//      if(user.length < 1) {
+//        return res.status(404).send(`User with email ${email} does not exist`);
+//      }
+//    } else {return res.status(404).send(`Invalid email or password`);}
+//    bcrypt.compare(password, user.password, (err, response) => {
+//      if(!response) {
+//        res.send(user.password);
+//        //return res.status(404).send(`User email and password do not match`);
+//      }
+//      res.status(200).send(user);
+//    });    
+//  }).catch((e) => {
+//    res.status(400).send(e);
+//  });
+//  
+
+
 app.listen(port, () => {
   console.log(`Started on port ${port}`);
 });
