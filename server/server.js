@@ -133,30 +133,13 @@ app.post('/users/login', (req, res) => {
   });
 });
 
-
-
-//  var email = body.email;
-//  var password = body.password;
-//  User.find({
-//    email: email
-//  }).then((user) => {
-//    if((typeof password !== 'undefined') && password.length >= 6) {
-//      if(user.length < 1) {
-//        return res.status(404).send(`User with email ${email} does not exist`);
-//      }
-//    } else {return res.status(404).send(`Invalid email or password`);}
-//    bcrypt.compare(password, user.password, (err, response) => {
-//      if(!response) {
-//        res.send(user.password);
-//        //return res.status(404).send(`User email and password do not match`);
-//      }
-//      res.status(200).send(user);
-//    });    
-//  }).catch((e) => {
-//    res.status(400).send(e);
-//  });
-//  
-
+app.delete('/users/me/token', authenticate, (req, res) => {
+  req.user.removeToken(req.token).then(() => {
+    res.status(200).send();
+  }, () => {
+    res.status(400).send();
+  });
+});
 
 app.listen(port, () => {
   console.log(`Started on port ${port}`);
