@@ -2,3 +2,4 @@ node_modules
 "Important Files"
 "npm Libraries"
 nbproject
+server/config/config.json
